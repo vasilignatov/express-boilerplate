@@ -42,6 +42,11 @@ const userSchema = mongoose.Schema({
     // }
 }, { timestamps: true });
 
+userSchema.statics.isUsernameTaken = async function(username) {
+    const user = await this.findOne({username});
+    return !!user;
+}
+
 userSchema.pre('save', function (next) {
     bcrypt.hash(this.password, SALT_ROUNDS)
         .then(hash => {
