@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
+const config = require('../config/config')[process.env.NODE_ENV];
 
 const userSchema = mongoose.Schema({
     username: {
@@ -48,7 +49,7 @@ userSchema.statics.isUsernameTaken = async function(username) {
 }
 
 userSchema.pre('save', function (next) {
-    bcrypt.hash(this.password, SALT_ROUNDS)
+    bcrypt.hash(this.password, config.SALT_ROUNDS)
         .then(hash => {
             this.password = hash;
             return next();
