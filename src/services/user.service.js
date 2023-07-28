@@ -22,18 +22,9 @@ const updateUserById = async (id, userData) => {
     return user;
 }
 
-
 const deleteUserById = async (id) => {
-    const user = await getUserById(id);
-
-    if(!user) {
-        throw new Error('User not found');
-    }
-    await user.remove();
-    return user;
+    return await User.findByIdAndDelete(id);
 }
-
-
 
 module.exports = {
     createUser,
