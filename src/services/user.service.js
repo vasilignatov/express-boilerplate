@@ -7,7 +7,6 @@ const createUser = async (userData) => {
     return User.create(userData);
 }
 
-
 const getUserById = async (id) => {
     return User.findById(id);
 }
