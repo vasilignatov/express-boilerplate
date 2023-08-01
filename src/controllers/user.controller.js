@@ -4,7 +4,9 @@ const userService = require('../services/user.service');
 const createUser = async (req, res) => {
     const user = await userService.createUser(req.body);
     console.log("USER: ", user);
-    res.status(httpStatus.CREATED).send(user);
+    res
+        .status(httpStatus.CREATED)
+        .send(user);
 }
 
 const getUsers = (req, res) => {
@@ -22,14 +24,13 @@ const getUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     const user = await userService.deleteUserById(req.params.userId);
-    console.log(user);
     res.send(user);
 }
 
 const updateUser = async (req, res) => {
     const user = await userService
         .updateUserById(req.params.userId, req.body);
-
+        
     res.send(user);
 }
 
