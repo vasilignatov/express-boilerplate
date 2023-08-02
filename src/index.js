@@ -7,9 +7,6 @@ const app = express();
 // Setup express server
 require('./config/express.config')(app);
 
-app.get('/', (req, res) => {
-    res.send('<h1>REST Server Boilerplate</h1>');
-});
 
 dbConfig(config.MONGODB_URL)
     .then(() => {

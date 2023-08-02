@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const routes = require('../routes/routes');
-const errorHandler = requrie('../middlewares/error');
+const errorHandler = require('../middlewares/error');
 
 function expressConfig(app) {
     app.use(cors());
@@ -12,7 +12,7 @@ function expressConfig(app) {
     }));
     app.use(helmet());
     app.use(routes);
-    app.use(errorHandler());
+    app.use(errorHandler);
 }
 
 module.exports = expressConfig;
