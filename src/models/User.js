@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        minlength: 8,
+        minlength: [8, 'Password must be at least 8 characters long'],
         validate(value) {
             if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
                 throw new Error('Password must contain at least one letter and one number');
@@ -43,10 +43,11 @@ const userSchema = mongoose.Schema({
     // }
 }, { timestamps: true });
 
-userSchema.statics.isUsernameTaken = async function(username) {
-    const user = await this.findOne({username});
+userSchema.statics.isUsernameTaken = async function (username) {
+    const user = await this.findOne({ username });
     return !!user;
 }
+
 
 userSchema.pre('save', function (next) {
     bcrypt.hash(this.password, config.SALT_ROUNDS)
