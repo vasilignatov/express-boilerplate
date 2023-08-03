@@ -1,6 +1,8 @@
 const httpStatus = require('http-status');
 const userService = require('../services/user.service');
-const catchAsync = require('../utils/catchAsync')
+const AppError = require('../utils/AppError');
+const catchAsync = require('../utils/catchAsync');
+const mongoose = require('mongoose');
 
 const createUser = catchAsync(async (req, res) => {
     const user = await userService.createUser(req.body);
@@ -14,16 +16,25 @@ const getUsers = (req, res) => {
 }
 
 const getUser = catchAsync(async (req, res) => {
-    const user = await userService.getUserById(req.params.userId);
-    if (!user) {
-        throw new Error('User not found');
+
+    const userId = req.params.userId;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw new AppError('User not found', httpStatus.NOT_FOUND);
     }
+
+    const user = await userService.getUserById(userId);
+
+    if (!user) {
+        throw new AppError('User not found', httpStatus.NOT_FOUND);
+    }
+    
     res.send(user);
 });
 
 
 const deleteUser = catchAsync(async (req, res) => {
-    const user = await userService.deleteUserById(req.params.userId);
+    const user = await userService.deleteUserById(req.params.userId.toString());
     res.send(user);
 });
 
