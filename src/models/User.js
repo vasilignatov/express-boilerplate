@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const toJson = require('@meanie/mongoose-to-json');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 const config = require('../config/config')[process.env.NODE_ENV];
@@ -43,8 +44,8 @@ const userSchema = mongoose.Schema({
     // }
 }, { timestamps: true });
 
-userSchema.statics.isUsernameTaken = async function (username) {
-    const user = await this.findOne({ username });
+userSchema.statics.isEmailTaken = async function (email) {
+    const user = await this.findOne({ email });
     return !!user;
 }
 
@@ -60,6 +61,9 @@ userSchema.pre('save', function (next) {
 userSchema.method('validatePassword', function (password) {
     return bcrypt.compare(password, this.password);
 });
+
+
+userSchema.plugin(toJson);
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
