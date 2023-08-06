@@ -11,6 +11,7 @@ const AppError = require('../utils/AppError');
  * @returns {Promise<string>} via jwt utils!
  */
 const createToken = (userId, expires, type = 'refresh', secret = config.JWT_SECRET) => {
+    console.log('TOKEN EXPIRES: ', expires);
     const payload = {
         sub: userId,
         iat: Math.floor(Date.now() / 1000),
@@ -42,13 +43,12 @@ const verifyToken = async (token, type = 'refresh') => {
 }
 
 const generateAuthTokens = async (user) => {
-
     const date = Date.now();
 
-    const accessTokenExpires = new Date(date + 1000 * 60 * config.JWT_ACCESS_EXPIRATION_MINUTES);
+    const accessTokenExpires = date + 1000 * 60 * config.JWT_ACCESS_EXPIRATION_MINUTES;
     const accessToken = await createToken(user.id, accessTokenExpires, 'access');
 
-    const refreshTokenExpires = new Date(date + 1000 * 60 * 60 * 24 * cpnfig.JWT_REFRESH_EXPIRATION_DAYS);
+    const refreshTokenExpires = date + 1000 * 60 * 60 * 24 * config.JWT_REFRESH_EXPIRATION_DAYS;
     const refreshToken = await createToken(user.id, refreshTokenExpires, 'refresh');
 
     await saveToken(refreshToken, user.id, refreshTokenExpires, 'refresh');

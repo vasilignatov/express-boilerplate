@@ -7,8 +7,8 @@ const config = require('../config/config')[process.env.NODE_ENV];
 const userSchema = mongoose.Schema({
     username: {
         type: String,
-        required: true,
         trim: true,
+        required: true
     },
     email: {
         type: String,

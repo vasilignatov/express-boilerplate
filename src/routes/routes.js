@@ -5,9 +5,15 @@ const authController = require('./auth.route.js');
 
 const AppError = require('../utils/AppError');
 
+router.use((req, res, next) => {
+    console.log(req.url);
+    next();
+});
+
 router.get('/', (req, res) => {
     res.send('<h1>Express Boilerplate</h1>');
 });
+
 
 router.use('/users', userController);
 router.use('/auth', authController);

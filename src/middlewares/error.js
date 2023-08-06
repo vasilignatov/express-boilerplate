@@ -3,7 +3,6 @@ const config = require('../config/config');
 const { MongooseError } = require('mongoose');
 
 const errorHandler = (err, req, res, next) => {
-
     let { message, statusCode } = err;
 
     if (err instanceof MongooseError) {
