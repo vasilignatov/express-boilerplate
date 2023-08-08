@@ -9,7 +9,7 @@ const loginLocal = async (email, password) => {
     const isAuthenticated = await user.validatePassword(password);
 
     if (!user || !isAuthenticated) {
-        throw new AppError('Wrong username or password', httpStatus.UNAUTHORIZED)
+        throw new AppError('Wrong username or password', httpStatus.UNAUTHORIZED);
     }
     return user;
 }
