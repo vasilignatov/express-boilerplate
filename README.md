@@ -4,7 +4,7 @@ A boilerplate for quickly building RESTful APIs using Express and Mongoose.
 ## Quick Start
 
 ```
-npx create-express-boilerplate <your-app-name>
+npx create-boilerplate-express <your-app-name>
 ```
 
 The script automaticly will rename .env.example to .env and the only thing you need to do is to set ***environment variables***.
