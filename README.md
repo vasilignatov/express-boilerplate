@@ -10,7 +10,7 @@ npx create-express-boilerplate <your-app-name>
 The script automaticly will rename .env.example to .env and the only thing you need to do is to set ***environment variables***.
 
 
-Or follow this steps if you want to do the installation mainaly:
+Or follow this steps if you want to do the installation manualy:
 
 **1.** Clone repository:
 ```
@@ -73,7 +73,7 @@ An access token is valid for 30 minutes. You can modify this expiration time by 
 
 **Refreshing Access Tokens**
 
-After the access token expires, a new access token can be generated, by making a call to the refresh token endpoint (`POST /v1/auth/refresh-tokens`) and sending along a valid refresh token in the request body. This call returns a new access token and a new refresh token.
+After the access token expires, a new access token can be generated, by making a call to the refresh token endpoint (`POST /auth/refresh-tokens`) and sending along a valid refresh token in the request body. This call returns a new access token and a new refresh token.
 
 A refresh token is valid for 30 days. You can modify this expiration time by changing the `JWT_REFRESH_EXPIRATION_DAYS` environment variable in the .env file.
 
@@ -83,8 +83,8 @@ The `isAdmin` middleware can be used to require certain rights/permissions to ac
 
 ```javascript
 const express = require('express');
-const { auth, isAdmin } = require('../../middlewares/auth');
-const userController = require('../../controllers/user.controller');
+const { auth, isAdmin } = require('../middlewares/auth');
+const userController = require('../controllers/user.controller');
 
 const router = express.Router();
 
