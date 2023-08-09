@@ -1,5 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
+const xss = require('xss-clean');
+const mongoSanitize = require('express-mongo-sanitize');
 const cors = require('cors');
 const routes = require('../routes/routes');
 const errorHandler = require('../middlewares/error');
@@ -17,6 +19,10 @@ function expressConfig(app) {
 
     // Middleware to parse requests with JSON payloads
     app.use(express.json());
+
+    // Sanitize request data
+    app.use(xss());
+    app.use(mongoSanitize());
 
     // Middleware to parse URL-encoded da
     app.use(express.urlencoded({
