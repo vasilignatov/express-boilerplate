@@ -2,6 +2,9 @@ const User = require('../models/User');
 const AppError = require('../utils/AppError');
 const httpStatus = require('http-status');
 
+const getUsers = async () => {
+    return User.find({});
+}
 const getUserById = async (id) => {
     return User.findById(id);
 }
@@ -32,6 +35,7 @@ const deleteUserById = async (id) => {
 }
 
 module.exports = {
+    getUsers,
     getUserById,
     getUserByEmail,
     createUser,

@@ -11,9 +11,10 @@ const createUser = catchAsync(async (req, res) => {
         .send(user);
 });
 
-const getUsers = (req, res) => {
-    // TODO: query string filtering
-}
+const getUsers = catchAsync((req, res) => {
+    const users = await userService.getUsers();
+    res.json(users);
+});
 
 const getUser = catchAsync(async (req, res) => {
 
@@ -32,7 +33,6 @@ const getUser = catchAsync(async (req, res) => {
     res.send(user);
 });
 
-
 const deleteUser = catchAsync(async (req, res) => {
     const user = await userService.deleteUserById(req.params.userId.toString());
     res.send(user);
@@ -46,6 +46,7 @@ const updateUser = catchAsync(async (req, res) => {
 });
 
 module.exports = {
+    getUsers,
     createUser,
     getUser,
     deleteUser,
