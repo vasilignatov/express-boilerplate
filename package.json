@@ -1,5 +1,5 @@
 {
-  "name": "express-boilerplate",
+  "name": "create-express-boilerplate",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "SET NODE_ENV=development&&nodemon ./src/index.js",
     "prod": "SET NODE_ENV=production&&node ./src/index.js"
+  },
+  "bin": {
+    "create-express-boilerplate": "bin/create-express-boilerplate.mjs"
   },
   "type": "commonjs",
   "keywords": [],
@@ -24,6 +27,7 @@
     "http-status": "^1.6.2",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.0",
+    "ora": "^7.0.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
