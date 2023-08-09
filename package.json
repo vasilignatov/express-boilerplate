@@ -1,5 +1,5 @@
 {
-  "name": "create-express-boilerplate",
+  "name": "create-boilerplate-express",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "prod": "SET NODE_ENV=production&&node ./src/index.js"
   },
   "bin": {
-    "create-express-boilerplate": "bin/create-express-boilerplate.mjs"
+    "create-boilerplate-express": "bin/create-boilerplate-express.mjs"
   },
   "type": "commonjs",
   "keywords": [],
