@@ -9,7 +9,7 @@
     "prod": "SET NODE_ENV=production&&node ./src/index.js"
   },
   "bin": {
-    "create-boilerplate-express": "bin/create-boilerplate-express.js"
+    "create-boilerplate-express": "./bin/create-boilerplate-express.js"
   },
   "type": "commonjs",
   "keywords": [],
