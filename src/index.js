@@ -11,7 +11,7 @@ require('./config/express.config')(app);
 dbConfig(config.MONGODB_URL)
     .then(() => {
         console.log('DB connected!');
-        app.listen(config.PORT, () => console.log('Server is listening on port: ' + config.PORT))
+        app.listen(config.PORT, () => console.log('Server is listening on port: ' + config.PORT));
     }).catch(err => {
         console.log('DB connection error: ', err);
     });

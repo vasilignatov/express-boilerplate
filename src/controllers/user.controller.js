@@ -11,7 +11,7 @@ const createUser = catchAsync(async (req, res) => {
         .send(user);
 });
 
-const getUsers = catchAsync((req, res) => {
+const getUsers = catchAsync(async (req, res) => {
     const users = await userService.getUsers();
     res.json(users);
 });
@@ -29,7 +29,7 @@ const getUser = catchAsync(async (req, res) => {
     if (!user) {
         throw new AppError('User not found', httpStatus.NOT_FOUND);
     }
-    
+
     res.send(user);
 });
 
