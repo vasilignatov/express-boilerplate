@@ -35,7 +35,7 @@ async function setup() {
   try {
     const gitSpinner = await ora("Downloading files...").start();
     // clone the repo into the project folder -> creates the new boilerplate
-    await exec(`git clone --depth 1 ${git_repo} ${projectPath} --quiet`);
+    await exec(`git clone ${git_repo} ${projectPath}`);
     gitSpinner.succeed();
 
     const cleanSpinner = ora("Removing useless files").start();
