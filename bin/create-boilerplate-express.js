@@ -1,11 +1,12 @@
 const { promisify } = require('util');
 const path = require('path');
-const fs = require('fs/promises');
+const fs = require('fs');
 const cp = require('child_process');
-// const ora = require('ora');
+const ora = require('ora');
+
 const exec = promisify(cp.exec);
-const rm = fs.rm;
-const rename = fs.rename;
+const rm = promisify(fs.rm);
+const rename = promisify(fs.rename);
 
 if (process.argv.length < 3) {
   console.log("You have to provide a name to your app.");
@@ -32,12 +33,12 @@ if (fs.existsSync(projectPath)) {
 async function setup() {
 
   try {
-    // const gitSpinner = ora("Downloading files...").start();
+    const gitSpinner = await ora("Downloading files...").start();
     // clone the repo into the project folder -> creates the new boilerplate
     await exec(`git clone --depth 1 ${git_repo} ${projectPath} --quiet`);
     gitSpinner.succeed();
 
-    // const cleanSpinner = ora("Removing useless files").start();
+    const cleanSpinner = ora("Removing useless files").start();
     // remove my git history
     const rmGit = rm(path.join(projectPath, ".git"), { recursive: true, force: true });
     // remove the installation file
@@ -48,10 +49,10 @@ async function setup() {
 
     process.chdir(projectPath);
     // remove the packages needed for cli
-    // await exec("npm uninstall ora cli-spinners");
+    await exec("npm uninstall ora cli-spinners");
     cleanSpinner.succeed();
 
-    // const npmSpinner = ora("Installing dependencies...").start();
+    const npmSpinner = ora("Installing dependencies...").start();
     await exec("npm install");
     npmSpinner.succeed();
 
