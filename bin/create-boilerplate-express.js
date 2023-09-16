@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const { promisify } = require('util');
 const path = require('path');
 const fs = require('fs');

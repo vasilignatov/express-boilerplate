@@ -15,3 +15,4 @@ dbConfig(config.MONGODB_URL)
     }).catch(err => {
         console.log('DB connection error: ', err);
     });
+
