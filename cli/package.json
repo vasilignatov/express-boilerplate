@@ -1,0 +1,42 @@
+{
+    "name": "create-boilerplate-express",
+    "version": "3.0.0",
+    "description": "Universal CLI generator for production-ready Express.js projects with TypeScript/JavaScript, databases, authentication, and more",
+    "main": "index.js",
+    "bin": {
+      "create-boilerplate-express": "./index.js"
+    },
+    "scripts": {
+      "start": "node index.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+      "express", 
+      "boilerplate", 
+      "cli", 
+      "typescript", 
+      "javascript",
+      "generator", 
+      "mongodb", 
+      "postgresql",
+      "jwt",
+      "swagger",
+      "docker",
+      "production-ready"
+    ],
+    "author": "Vasil Ignatov",
+    "license": "MIT",
+    "dependencies": {
+      "chalk": "^5.3.0",
+      "fs-extra": "^11.2.0",
+      "inquirer": "^9.2.15",
+      "ora": "^7.0.1"
+    },
+    "engines": {
+      "node": ">=16.0.0"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/vasilignatov/express-boilerplate.git"
+    }
+}
