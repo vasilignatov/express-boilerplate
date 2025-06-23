@@ -1,10 +1,15 @@
 #!/usr/bin/env node
 
-const inquirer = require("inquirer");
-const fs = require("fs-extra");
-const path = require("path");
-const chalk = require("chalk");
-const ora = require("ora");
+import inquirer from "inquirer";
+import fs from "fs-extra";
+import path from "path";
+import chalk from "chalk";
+import ora from "ora";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 class ExpressBoilerplateGenerator {
   constructor() {
@@ -199,7 +204,7 @@ class ExpressBoilerplateGenerator {
   }
 
   async setupDocker(targetDir) {
-    // Copy Docker files
+    // Copy Docker configuration
   }
 
   async generateEnvFile(targetDir) {
@@ -207,13 +212,13 @@ class ExpressBoilerplateGenerator {
   }
 
   async generateReadme(targetDir) {
-    // Generate comprehensive README
+    // Generate README with instructions
   }
 }
 
 // Run the generator
 const generator = new ExpressBoilerplateGenerator();
 generator.run().catch(error => {
-  console.error(chalk.red("Unexpected error:"), error);
+  console.error(chalk.red("Fatal error:"), error.message);
   process.exit(1);
 });

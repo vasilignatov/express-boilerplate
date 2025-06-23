@@ -3,6 +3,7 @@
     "version": "3.0.0",
     "description": "Universal CLI generator for production-ready Express.js projects with TypeScript/JavaScript, databases, authentication, and more",
     "main": "index.js",
+    "type": "module",
     "bin": {
       "create-boilerplate-express": "./index.js"
     },
