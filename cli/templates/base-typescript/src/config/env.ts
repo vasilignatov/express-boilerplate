@@ -36,32 +36,11 @@ const envSchema = Joi.object({
     .positive()
     .default(100),
   
-  // Optional fields that will be validated if present
-  JWT_ACCESS_SECRET: Joi.string()
-    .min(32)
-    .optional(),
-  
-  JWT_REFRESH_SECRET: Joi.string()
-    .min(32)
-    .optional(),
-  
   BCRYPT_SALT_ROUNDS: Joi.number()
     .integer()
     .min(10)
     .max(15)
-    .default(12),
-  
-  MONGODB_URI: Joi.string()
-    .uri()
-    .optional(),
-  
-  DATABASE_URL: Joi.string()
-    .uri()
-    .optional(),
-  
-  REDIS_URL: Joi.string()
-    .uri()
-    .optional()
+    .default(12)
 }).unknown(true); // Allow additional environment variables
 
 /**
@@ -75,12 +54,7 @@ export interface EnvConfig {
   CORS_ORIGIN: string;
   RATE_LIMIT_WINDOW_MS: number;
   RATE_LIMIT_MAX_REQUESTS: number;
-  JWT_ACCESS_SECRET?: string;
-  JWT_REFRESH_SECRET?: string;
   BCRYPT_SALT_ROUNDS: number;
-  MONGODB_URI?: string;
-  DATABASE_URL?: string;
-  REDIS_URL?: string;
 }
 
 /**
@@ -103,26 +77,12 @@ export const validateEnv = (): EnvConfig => {
     throw new Error(`Environment validation failed: ${errorMessages}`);
   }
 
-  // Log validated configuration (without secrets)
-  const safeConfig = {
-    NODE_ENV: value.NODE_ENV,
-    PORT: value.PORT,
-    API_PREFIX: value.API_PREFIX,
-    LOG_LEVEL: value.LOG_LEVEL,
-    CORS_ORIGIN: value.CORS_ORIGIN,
-    RATE_LIMIT_WINDOW_MS: value.RATE_LIMIT_WINDOW_MS,
-    RATE_LIMIT_MAX_REQUESTS: value.RATE_LIMIT_MAX_REQUESTS,
-    BCRYPT_SALT_ROUNDS: value.BCRYPT_SALT_ROUNDS,
-    // Mask sensitive values
-    JWT_ACCESS_SECRET: value.JWT_ACCESS_SECRET ? '[SET]' : '[NOT SET]',
-    JWT_REFRESH_SECRET: value.JWT_REFRESH_SECRET ? '[SET]' : '[NOT SET]',
-    MONGODB_URI: value.MONGODB_URI ? '[SET]' : '[NOT SET]',
-    DATABASE_URL: value.DATABASE_URL ? '[SET]' : '[NOT SET]',
-    REDIS_URL: value.REDIS_URL ? '[SET]' : '[NOT SET]'
-  };
-
+  // Log basic configuration
   logger.info({
-    config: safeConfig
+    nodeEnv: value.NODE_ENV,
+    port: value.PORT,
+    logLevel: value.LOG_LEVEL,
+    apiPrefix: value.API_PREFIX
   }, 'Environment variables validated successfully');
 
   return value as EnvConfig;
@@ -175,19 +135,6 @@ export const getConfig = () => {
         maxRequests: env.RATE_LIMIT_MAX_REQUESTS
       },
       bcryptSaltRounds: env.BCRYPT_SALT_ROUNDS
-    },
-    
-    auth: {
-      accessSecret: env.JWT_ACCESS_SECRET,
-      refreshSecret: env.JWT_REFRESH_SECRET,
-      accessTokenExpiry: '15m',
-      refreshTokenExpiry: '7d'
-    },
-    
-    database: {
-      mongodbUri: env.MONGODB_URI,
-      postgresUrl: env.DATABASE_URL,
-      redisUrl: env.REDIS_URL
     }
   };
 }; 

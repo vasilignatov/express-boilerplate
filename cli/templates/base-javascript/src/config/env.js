@@ -23,28 +23,6 @@ const envSchema = Joi.object({
   CORS_ORIGIN: Joi.string()
     .default('http://localhost:3000'),
   
-  JWT_ACCESS_SECRET: Joi.string()
-    .min(32)
-    .when('NODE_ENV', {
-      is: 'production',
-      then: Joi.required(),
-      otherwise: Joi.default('development_access_secret_key_min_32_chars')
-    }),
-  
-  JWT_REFRESH_SECRET: Joi.string()
-    .min(32)
-    .when('NODE_ENV', {
-      is: 'production',
-      then: Joi.required(),
-      otherwise: Joi.default('development_refresh_secret_key_min_32_chars')
-    }),
-  
-  JWT_ACCESS_EXPIRES_IN: Joi.string()
-    .default('15m'),
-  
-  JWT_REFRESH_EXPIRES_IN: Joi.string()
-    .default('7d'),
-  
   BCRYPT_SALT_ROUNDS: Joi.number()
     .integer()
     .min(10)
@@ -61,25 +39,7 @@ const envSchema = Joi.object({
     .min(1)
     .default(100),
   
-  // Database (optional - will be added by database templates)
-  MONGODB_URI: Joi.string()
-    .uri()
-    .optional(),
-  
-  DATABASE_URL: Joi.string()
-    .uri()
-    .optional(),
-  
-  // Redis (optional)
-  REDIS_HOST: Joi.string()
-    .optional(),
-  
-  REDIS_PORT: Joi.number()
-    .port()
-    .optional(),
-  
-  REDIS_PASSWORD: Joi.string()
-    .optional()
+
 }).unknown(true); // Allow other environment variables
 
 /**
@@ -140,24 +100,12 @@ export const getConfig = () => {
     },
     security: {
       corsOrigin: value.CORS_ORIGIN?.split(',') || ['http://localhost:3000'],
-      jwtAccessSecret: value.JWT_ACCESS_SECRET,
-      jwtRefreshSecret: value.JWT_REFRESH_SECRET,
-      jwtAccessExpiresIn: value.JWT_ACCESS_EXPIRES_IN,
-      jwtRefreshExpiresIn: value.JWT_REFRESH_EXPIRES_IN,
       bcryptSaltRounds: value.BCRYPT_SALT_ROUNDS
     },
     rateLimit: {
       windowMs: value.RATE_LIMIT_WINDOW_MS,
       maxRequests: value.RATE_LIMIT_MAX_REQUESTS
     },
-    database: {
-      mongodbUri: value.MONGODB_URI,
-      databaseUrl: value.DATABASE_URL
-    },
-    redis: {
-      host: value.REDIS_HOST,
-      port: value.REDIS_PORT,
-      password: value.REDIS_PASSWORD
-    }
+
   };
 }; 
