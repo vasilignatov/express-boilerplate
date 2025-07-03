@@ -1,6 +1,6 @@
 {
     "name": "create-boilerplate-express",
-    "version": "3.0.0",
+    "version": "2.0.0-beta.1",
     "description": "Universal CLI generator for production-ready Express.js projects with TypeScript/JavaScript, databases, authentication, and more",
     "main": "index.js",
     "type": "module",
